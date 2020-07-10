@@ -1,0 +1,110 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  product_name: chef
+  product_version: 14.12.9
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+
+suites:
+  - name: cg2-core  # name of the instance to create
+    driver:
+      vm_hostname: core.SparkIT-Games.com
+    driver_config:
+      box:CGSP-2-core
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    verifier:
+      inspect_tests:
+        - test/integration/default
+    attributes:
+    
+  - name: cg2-frontw
+    driver:
+      vm_hostname: fw.SparkIT-Games.com
+    driver_config:
+      box:CG2-web-front
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    verifier:
+      inspect_tests:
+        - test/integration/default
+    attributes:
+
+  - name: cg2-backw
+    driver:
+      vm_hostname: bw.SparkIT-Games.com
+    driver_config:
+      box:CG2-web-back
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    verifier:
+      inspect_tests:
+        - test/integration/default
+    attributes:
+
+  - name: cg2-db
+    driver:
+      vm_hostname: db.SparkIT-Games.com
+    driver_config:
+      box:CG-db
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    verifier:
+      inspect_tests:
+        - test/integration/default
+    attributes:
+
+  - name: cg2-microp
+    driver:
+      vm_hostname: microp.SparkIT-Games.com
+    driver_config:
+      box:CG-2-Micropayment
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    verifier:
+      inspect_tests:
+        - test/integration/default
+    attributes:
+
+  - name: cg2-CoCore
+    driver:
+      vm_hostname: coCore.SparkIT-Games.com
+    driver_config:
+      box:CG-2-CoopPlayCore
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    verifier:
+      inspect_tests:
+        - test/integration/default
+    attributes:
+
+  - name: cg2-CoGW
+    driver:
+      vm_hostname: CoGW.SparkIT-Games.com
+    driver_config:
+      box:CG-2-CoopPlay-gw
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    verifier:
+      inspect_tests:
+        - test/integration/default
+    attributes:
+
+  - name: cg2-CoopPlay-env
+    driver:
+      vm_hostname: micropayment.SparkIT-Games.com
+    driver_config:
+      box:CoopPlay-env
+    run_list:
+      - recipe[learn_chef_httpd::default]
+    verifier:
+      inspect_tests:
+        - test/integration/default
+    attributes:
